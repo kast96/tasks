@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import image1 from "../assets/images/1.jpg";
 import { CardType } from "../types/types";
+import image1 from "../assets/images/1.jpg";
 
 const SET_DETAIL_CARD = 'cards/cards/SET-DETAIL-CARD';
 const SET_DONE = 'cards/cards/SET-DONE';

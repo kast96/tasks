@@ -1,4 +1,5 @@
 import React from 'react';
+import { Image, Text, View } from 'react-native';
 import { Link } from 'react-router-native';
 import { CardType } from '../../types/types';
 import { Button } from '../common/Button/Button';
@@ -10,22 +11,22 @@ type PropsType = {
 
 const CardDetail: React.FC<PropsType> = ({item, onPressSetDone}) => {
     return (
-        <div className="item">
-            <Link to={`/`}><div>Назад</div></Link>
-            {item.image &&
-                <div className="item__img">
-                    <img src={item.image} alt={item.name} />
-                </div>
-            }
-            <div className="item__name">{item.name}</div>
+        <View>
+            <Link to={`/`}><Text>Назад</Text></Link>
+            {/*item.image &&
+                <View>
+                    <Image source={require(item.image)} />
+                </View>
+            */}
+            <Text>{item.name}</Text>
             {item.description &&
-                <div className="item__description">{item.description}</div>
+                <Text>{item.description}</Text>
             }
-            <div className="item__buttons">
+            <View>
                 <Button onPress={onPressSetDone(item.id, true)} title={'Выполнено'} selected={item.done} />
                 <Button onPress={onPressSetDone(item.id, false)} title={'Не выполнено'} selected={!item.done} />
-            </div>
-        </div>
+            </View>
+        </View>
     )
 }
 

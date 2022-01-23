@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { Dimensions, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import CardsContainer from "./src/components/Card/CardsContainer";
 import CardDetailContainer from "./src/components/Card/CardDetailContainer";
 import store, { AppStateType } from './src/redux/redux-store';
@@ -20,12 +20,14 @@ const AppRedux = ({loadStorageActionCreator}) => {
   
   return (
     <NativeRouter>
-      <View style={styles.container}>
-        <Routes>
+      <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        {<Routes>
           {<Route path="/card/:id" element={<CardDetailContainer />} />}
           <Route path="*" element={<CardsContainer />} />
-        </Routes>
-      </View>
+        </Routes>}
+      </ScrollView>
+      </SafeAreaView>
     </NativeRouter>
   );
 }
@@ -57,6 +59,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: StatusBar.currentHeight,
+  },
+  scrollView: {
+    backgroundColor: 'pink',
   },
   fixToText: {
     flexDirection: 'row',

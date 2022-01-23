@@ -1,4 +1,5 @@
 import React from 'react';
+import { Image, Text, View } from 'react-native';
 import { Link } from 'react-router-native';
 import { CardType } from '../../types/types';
 
@@ -9,15 +10,15 @@ type PropsType = {
 const CardItem: React.FC<PropsType> = ({item}) => {
     return (
         <Link to={`/card/${item.id}`}>
-            <div className="item">
-                <div className="item__img">
+            <View>
+                <View>
                     {item.image &&
-                        <img src={item.image} alt={item.name} />
+                        <Image source={item.image} />
                     }
-                </div>
-                <div className="item__name">{item.name}</div>
-                <div className="item__status">{item.done ? 'Выполнено' : 'Не выполнено'}</div>
-            </div>
+                </View>
+                <Text>{item.name}</Text>
+                <Text>{item.done ? 'Выполнено' : 'Не выполнено'}</Text>
+            </View>
         </Link>
     )
 }

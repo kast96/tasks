@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 import { CardType } from "../types/types";
 import CardItem from './CardItem';
 
@@ -8,9 +9,9 @@ type PropsType = {
 
 const Cards: React.FC<PropsType> = ({cards}) => {
     return (
-        <div className="items">
+        <View>
             {cards.map(item => <CardItem key={item.id} item={item} />)}
-        </div>
+        </View>
     )
 }
 
