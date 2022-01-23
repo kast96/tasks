@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "base64url": "^3.0.1",
     "expo": "^44.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -8,7 +7,6 @@
     "react-native-web": "0.17.1",
     "react-redux": "^7.2.6",
     "react-router-native": "^6.2.1",
-    "react-share": "^4.4.0",
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1"
   },
