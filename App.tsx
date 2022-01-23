@@ -35,7 +35,7 @@ const AppRedux = ({loadStorageActionCreator}) => {
 
 type MapStateToPropsType = {}
 type MapDispatchToPropsType = {
-  loadStorageActionCreator: () => void
+  loadStorageActionCreator: (items: Array<number>) => void
 }
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
 });
