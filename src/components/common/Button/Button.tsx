@@ -1,9 +1,11 @@
 import { Pressable, StyleSheet, Text } from 'react-native';
 
-export function Button(props) {
-    const { onPress, title = '' } = props;
+export function Button({onPress, title = '', selected}) {
+    if (selected) {
+      onPress = () => {};
+    }
     return (
-      <Pressable style={styles.button} onPress={onPress}>
+      <Pressable style={selected ? buttonSelectedStyle : styles.button} onPress={onPress}>
         <Text style={styles.text}>{title}</Text>
       </Pressable>
     );
@@ -17,7 +19,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 32,
         borderRadius: 4,
         elevation: 3,
-        backgroundColor: '#f194ff',
+        backgroundColor: '#cd8383',
+    },
+    buttonSelected: {
+      backgroundColor: '#bd2828',
     },
     text: {
         fontSize: 16,
@@ -27,3 +32,8 @@ const styles = StyleSheet.create({
         color: 'white',
     }
 });
+
+const buttonSelectedStyle = StyleSheet.flatten([
+  styles.button,
+  styles.buttonSelected
+]);

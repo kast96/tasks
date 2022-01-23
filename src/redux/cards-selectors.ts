@@ -15,6 +15,5 @@ export const getStateCardDetail = createSelector(selectSelf, getStateCards, (sta
     if (!item) {
         item = items[0];
     }
-
 	return item;
 });

@@ -9,7 +9,7 @@ type PropsType = {
 const Cards: React.FC<PropsType> = ({cards}) => {
     return (
         <div className="items">
-            {cards.map(item => <CardItem key={item.id} id={item.id} name={item.name} image={item.image} />)}
+            {cards.map(item => <CardItem key={item.id} item={item} />)}
         </div>
     )
 }

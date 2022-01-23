@@ -1,9 +1,11 @@
 import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
 import cardsReducer from './cards-reducer';
+import otherReducer from './other-reducer';
 import thunkMiddleware from 'redux-thunk';
 
 let rootReduser = combineReducers({
     cards: cardsReducer,
+    other: otherReducer
 });
 
 type rootReduserType = typeof rootReduser;
