@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { getStateCards } from '../../redux/cards-selectors';
 import { AppStateType } from '../../redux/redux-store';
 import { CardType } from "../types/types";
 import Cards from "./Cards";
@@ -21,7 +22,7 @@ const CardsContainer: React.FC<PropsType> = ({cards}) => {
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-      cards: state.cards.cards
+      cards: getStateCards(state)
     }
   }
 
