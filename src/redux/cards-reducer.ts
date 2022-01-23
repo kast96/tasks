@@ -1,8 +1,11 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import image1 from "../assets/images/1.jpg";
 import { CardType } from "../types/types";
 
 const SET_DETAIL_CARD = 'cards/cards/SET-DETAIL-CARD';
 const SET_DONE = 'cards/cards/SET-DONE';
+const SAVE_STORAGE = 'cards/cards/SAVE-STORAGE';
+const LOAD_STORAGE = 'cards/cards/LOAD-STORAGE';
 
 let initialState = {
     cards: [
@@ -24,7 +27,7 @@ const cardsReducer = (state = initialState, action: any): InitialStateType => {
             };
 
         case SET_DONE:
-            let cards: Array<CardType> = [...state.cards].map(item => {
+            let cardsSetDone: Array<CardType> = [...state.cards].map(item => {
                 let newItem = {...item};
                 if (newItem.id === action.id) {
                     newItem.done = action.done;
@@ -34,13 +37,51 @@ const cardsReducer = (state = initialState, action: any): InitialStateType => {
             
             return {
                 ...state,
-                cards
+                cards: cardsSetDone
+            };
+
+        case SAVE_STORAGE:
+            const items: Array<number> = state.cards.filter(item => item.done === true).map(item => item.id)
+            storeData('doneID', JSON.stringify(items));
+            
+            return state;
+            
+        case LOAD_STORAGE:
+            let cardsLoadStorage: Array<CardType> = [...state.cards].map(item => {
+                let newItem = {...item};
+                if (action.ids.includes(newItem.id)) {
+                    newItem.done = true;
+                }
+                return newItem;
+            });
+
+            return {
+                ...state,
+                cards: cardsLoadStorage
             };
 
         default:
             return state;
     }
 }
+
+export const storeData = async (key: string, value: string): Promise<void | false> => {
+    try {
+        await AsyncStorage.setItem(`@CardStore:${key}`, value);
+    } catch (error) {
+        console.error('Save Failed');
+        return false;
+    }
+};
+
+export const retrieveData = async (key: string): Promise<string | false> => {
+    try {
+      return await AsyncStorage.getItem(`@CardStore:${key}`);
+    } catch (error) {
+        console.error('Load Failed');
+        return false;
+    }
+};
 
 type SetDetailActionType = {
     type: typeof SET_DETAIL_CARD
@@ -59,6 +100,23 @@ type SetDoneActionType = {
 
 export const setDoneActionCreator = (id: number, done: boolean): SetDoneActionType => {
 	return {type: SET_DONE, id, done}
+}
+
+type SaveStorageActionType = {
+    type: typeof SAVE_STORAGE
+}
+
+export const saveStorageActionCreator = (): SaveStorageActionType => {
+    return {type: SAVE_STORAGE}
+}
+
+type LoadStorageActionType = {
+    type: typeof LOAD_STORAGE
+    ids: Array<number>
+}
+
+export const loadStorageActionCreator = (ids: Array<number>): LoadStorageActionType => {
+    return {type: LOAD_STORAGE, ids}
 }
 
 export default cardsReducer;

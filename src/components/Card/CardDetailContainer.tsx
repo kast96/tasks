@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-native';
 import { compose } from 'redux';
-import { setDetailActionCreator, setDoneActionCreator } from '../../redux/cards-reducer';
+import { saveStorageActionCreator, setDetailActionCreator, setDoneActionCreator } from '../../redux/cards-reducer';
 import { getStateCardDetail } from '../../redux/cards-selectors';
 import { AppStateType } from '../../redux/redux-store';
 import { CardType } from "../types/types";
@@ -15,11 +15,12 @@ type MapStateToPropsType = {
 type MapDispatchToPropsType = {
     setDetailActionCreator: (id: number) => void
     setDoneActionCreator: (id: number, done: boolean) => void
+    saveStorageActionCreator: () => void
 }
   
 type PropsType = MapStateToPropsType & MapDispatchToPropsType
 
-const CardDetailContainer: React.FC<PropsType> = ({item, setDetailActionCreator, setDoneActionCreator}) => {
+const CardDetailContainer: React.FC<PropsType> = ({item, setDetailActionCreator, setDoneActionCreator, saveStorageActionCreator}) => {
     const urlParams = useParams()
     const id = +urlParams.id
     
@@ -31,6 +32,7 @@ const CardDetailContainer: React.FC<PropsType> = ({item, setDetailActionCreator,
 
     const onPressSetDone = (id: number, done: boolean) => () => {
         setDoneActionCreator(id, done);
+        saveStorageActionCreator();
     }
     
     return (
@@ -45,5 +47,5 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 export default compose(
-    connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {setDetailActionCreator, setDoneActionCreator}),
+    connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {setDetailActionCreator, setDoneActionCreator, saveStorageActionCreator}),
 )(CardDetailContainer);

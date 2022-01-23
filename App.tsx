@@ -1,24 +1,55 @@
 import { StyleSheet, View } from 'react-native';
 import CardsContainer from "./src/components/Card/CardsContainer";
 import CardDetailContainer from "./src/components/Card/CardDetailContainer";
-import store from './src/redux/redux-store';
-import { Provider } from 'react-redux';
+import store, { AppStateType } from './src/redux/redux-store';
+import { loadStorageActionCreator, retrieveData } from './src/redux/cards-reducer';
+import { connect, Provider } from 'react-redux';
 import { NativeRouter, Route, Routes } from 'react-router-native';
+import { useEffect } from 'react';
 
-export default function App() {
+const AppRedux = ({loadStorageActionCreator}) => {
+  useEffect(() => {
+    retrieveData('doneID').then((result) => {
+      if (typeof(result) !== 'string') return;
+      let items = JSON.parse(result);
+      if (items instanceof Array) {
+        loadStorageActionCreator(items);
+      }
+    });
+  }, [retrieveData, loadStorageActionCreator]);
+  
+  return (
+    <NativeRouter>
+      <View style={styles.container}>
+        <Routes>
+          {<Route path="/card/:id" element={<CardDetailContainer />} />}
+          <Route path="*" element={<CardsContainer />} />
+        </Routes>
+      </View>
+    </NativeRouter>
+  );
+}
+
+
+type MapStateToPropsType = {}
+type MapDispatchToPropsType = {
+  loadStorageActionCreator: () => void
+}
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
+});
+const AppContainer = connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {loadStorageActionCreator})(AppRedux);
+
+
+const App = () => {
   return (
     <Provider store={store}>
-      <NativeRouter>
-        <View style={styles.container}>
-          <Routes>
-            {<Route path="/card/:id" element={<CardDetailContainer />} />}
-            <Route path="*" element={<CardsContainer />} />
-          </Routes>
-        </View>
-      </NativeRouter>
+      <AppContainer />
     </Provider>
   );
 }
+
+export default App;
+
 
 const styles = StyleSheet.create({
   container: {
