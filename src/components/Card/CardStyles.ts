@@ -1,19 +1,10 @@
-import { Dimensions, StyleSheet } from 'react-native';
-
-const dimensions = Dimensions.get('window');
-const imageWidth = dimensions.width;
-const imageHeight = Math.round(dimensions.width * 9 / 16);
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  safeAreaView: {
-    width: '100%'
-  },
-  scrollView: {
-    backgroundColor: 'pink',
-    borderWidth: 5,
-    borderColor: '#F00',
-    overflow: 'hidden',
-    width: '100%'
+  items: {
+    marginLeft: 20,
+    marginRight: 20,
+    marginBottom: 50,
   },
 });
 

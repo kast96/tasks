@@ -11,14 +11,17 @@ type PropsType = {
 const CardItem: React.FC<PropsType> = ({item}) => {
     return (
         <Link to={`/card/${item.id}`}>
-            <View>
-                <View>
+            <View style={styles.item}>
+                <View style={styles.image_container}>
                     {item.image &&
                         <Image source={item.image} style={styles.image} />
                     }
                 </View>
-                <Text>{item.name}</Text>
-                <Text>{item.done ? 'Выполнено' : 'Не выполнено'}</Text>
+                <View style={styles.container}>
+                    <Text style={styles.title}>{item.name}</Text>
+                    <Text style={[styles.status, item.done && styles.status__done]}>{item.done ? 'Выполнено' : 'Не выполнено'}</Text>
+                </View>
+                <View style={styles.accent}></View>
             </View>
         </Link>
     )
