@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { getStateCards } from '../../redux/cards-selectors';
@@ -11,10 +11,20 @@ type MapStateToPropsType = {
 }
   
 type MapDispatchToPropsType = {}
-  
-type PropsType = MapStateToPropsType & MapDispatchToPropsType
 
-const CardsContainer: React.FC<PropsType> = ({cards}) => {
+type OtherPropsType = {
+    setTitle: Dispatch<SetStateAction<string>>
+    setBackBtnPath:  Dispatch<SetStateAction<string | null>>
+}
+  
+type PropsType = MapStateToPropsType & MapDispatchToPropsType & OtherPropsType
+
+const CardsContainer: React.FC<PropsType> = ({cards, setTitle, setBackBtnPath}) => {
+    useEffect(() => {
+        setTitle(`Tasks`)
+        setBackBtnPath(null)
+    }, [setTitle, setBackBtnPath])
+    
     return (
         <Cards cards={cards} />
     )
@@ -27,5 +37,5 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
   }
 
 export default compose(
-    connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {}),
+    connect<MapStateToPropsType, MapDispatchToPropsType, OtherPropsType, AppStateType>(mapStateToProps, {}),
 )(CardsContainer);

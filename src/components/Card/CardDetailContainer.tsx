@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-native';
 import { compose } from 'redux';
@@ -17,10 +17,15 @@ type MapDispatchToPropsType = {
     setDoneActionCreator: (id: number, done: boolean) => void
     saveStorageActionCreator: () => void
 }
-  
-type PropsType = MapStateToPropsType & MapDispatchToPropsType
 
-const CardDetailContainer: React.FC<PropsType> = ({item, setDetailActionCreator, setDoneActionCreator, saveStorageActionCreator}) => {
+type OtherPropsType = {
+    setTitle: Dispatch<SetStateAction<string>>
+    setBackBtnPath:  Dispatch<SetStateAction<string | null>>
+}
+  
+type PropsType = MapStateToPropsType & MapDispatchToPropsType & OtherPropsType
+
+const CardDetailContainer: React.FC<PropsType> = ({item, setDetailActionCreator, setDoneActionCreator, saveStorageActionCreator, setTitle, setBackBtnPath}) => {
     const urlParams = useParams()
     const id = +urlParams.id
     
@@ -29,6 +34,11 @@ const CardDetailContainer: React.FC<PropsType> = ({item, setDetailActionCreator,
             setDetailActionCreator(id)
         }
     }, [id, item.id, setDetailActionCreator])
+
+    useEffect(() => {
+        setTitle(`Task ${id}`)
+        setBackBtnPath('/')
+    }, [setTitle, setBackBtnPath])
 
     const onPressSetDone = (id: number, done: boolean) => () => {
         setDoneActionCreator(id, done);
@@ -47,5 +57,5 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 export default compose(
-    connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {setDetailActionCreator, setDoneActionCreator, saveStorageActionCreator}),
+    connect<MapStateToPropsType, MapDispatchToPropsType, OtherPropsType, AppStateType>(mapStateToProps, {setDetailActionCreator, setDoneActionCreator, saveStorageActionCreator}),
 )(CardDetailContainer);
