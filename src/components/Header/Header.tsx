@@ -11,7 +11,7 @@ type ParamsType = {
 const Header: React.FC<ParamsType> = ({title, backBtnPath}) => {
     return (
         <View style={styles.header}>
-            {backBtnPath && <Link to={backBtnPath}><Text style={styles.back}>{'<'}</Text></Link>}
+            {backBtnPath && <Link to={backBtnPath} underlayColor="white"><Text style={styles.back}>{'<'}</Text></Link>}
             <Text style={[styles.title, backBtnPath && styles.title__back]}>{title}</Text>
         </View>
     )

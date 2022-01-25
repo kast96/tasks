@@ -21,15 +21,15 @@ export const styles = StyleSheet.create({
       borderColor: '#346FDF',
     },
     buttonGreen: {
-      backgroundColor: '#393',
-      borderColor: '#393',
+      backgroundColor: '#44a544',
+      borderColor: '#44a544',
     },
     buttonGreenSelected: {
       borderColor: '#0e670e',
     },
     buttonRed: {
-      backgroundColor: '#e22',
-      borderColor: '#e22',
+      backgroundColor: '#ef3636',
+      borderColor: '#ef3636',
     },
     buttonRedSelected: {
       borderColor: '#9b0000',

@@ -7,6 +7,10 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   item: {
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  content: {
     display: 'flex',
     flexDirection: 'row',
     backgroundColor: '#fff',
@@ -22,8 +26,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 20,
     elevation: 20,
-    marginTop: 10,
-    marginBottom: 10,
     overflow: 'hidden',
   },
   image_container: {
