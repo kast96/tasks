@@ -18,17 +18,23 @@ const styles = StyleSheet.create({
     paddingLeft: 0,
   },
   title__back: {
-    paddingRight: 128,
+    paddingRight: 148,
   },
   back: {
-    textAlign: 'center',
-    width: 64,
-    height: 64,
-    fontSize: 32,
-    fontFamily: 'Nunito-ExtraBold',
-    color: '#333',
-    borderColor: '#eee',
-    paddingTop: 8,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 44,
+    height: 44,
+    backgroundColor: '#EAF1FF',
+    margin: 10,
+    marginLeft: 20,
+    borderRadius: 16
+  },
+  back__svg: {
+    width: 24,
+    height: 24,
+    color: '#548FFF',
   }
 });
 
