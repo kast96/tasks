@@ -1,11 +1,11 @@
 import React from 'react';
 import { View } from 'react-native';
-import { CardType } from "../types/types";
+import { CardType } from "../../types/types";
 import CardItem from './CardItem';
-import styles from "./CardStyles";
+import styles from "./CardsStyles";
 
 type PropsType = {
-    cards: CardType
+    cards: Array<CardType>
 }
 
 const Cards: React.FC<PropsType> = ({cards}) => {

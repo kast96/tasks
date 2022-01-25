@@ -1,39 +1,36 @@
-import { Pressable, StyleSheet, Text } from 'react-native';
+import React from 'react';
+import { Pressable, Text } from 'react-native';
+import { styles } from "./ButtonStyles";
 
-export function Button({onPress, title = '', selected}) {
+type PropsType = {
+  onPress: any
+  title: string
+  selected?: boolean
+  style?: any
+  theme?: 'green' | 'red'
+}
+
+export let Button: React.FC<PropsType> = ({onPress, title = '', selected, style, theme}) => {
     if (selected) {
       onPress = () => {};
     }
+    let themeStyles = null;
+    if (theme == 'green') {
+      themeStyles = [styles.buttonGreen]
+      if (selected) themeStyles.push(styles.buttonGreenSelected)
+    }
+    if (theme == 'red') {
+      themeStyles = [styles.buttonRed]
+      if (selected) themeStyles.push(styles.buttonRedSelected)
+    }
+    if (!theme) {
+      themeStyles = [styles.buttonDefault]
+      if (selected) themeStyles.push(styles.buttonDefaultSelected)
+    }
+    
     return (
-      <Pressable style={selected ? buttonSelectedStyle : styles.button} onPress={onPress}>
+      <Pressable style={[styles.button, themeStyles, theme && themeStyles, style]} onPress={onPress}>
         <Text style={styles.text}>{title}</Text>
       </Pressable>
     );
 }
-
-const styles = StyleSheet.create({
-    button: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: 12,
-        paddingHorizontal: 32,
-        borderRadius: 4,
-        elevation: 3,
-        backgroundColor: '#cd8383',
-    },
-    buttonSelected: {
-      backgroundColor: '#bd2828',
-    },
-    text: {
-        fontSize: 16,
-        lineHeight: 21,
-        fontWeight: 'bold',
-        letterSpacing: 0.25,
-        color: 'white',
-    }
-});
-
-const buttonSelectedStyle = StyleSheet.flatten([
-  styles.button,
-  styles.buttonSelected
-]);

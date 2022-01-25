@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { getStateCards } from '../../redux/cards-selectors';
 import { AppStateType } from '../../redux/redux-store';
-import { CardType } from "../types/types";
+import { CardType } from "../../types/types";
 import Cards from "./Cards";
 
 type MapStateToPropsType = {
