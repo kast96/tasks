@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, Text } from 'react-native';
+import { SafeAreaView, ScrollView } from 'react-native';
 import CardsContainer from "./src/components/Card/CardsContainer";
 import CardDetailContainer from "./src/components/Card/CardDetailContainer";
 import store, { AppStateType } from './src/redux/redux-store';

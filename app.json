@@ -11,6 +11,7 @@
         "android": {
             "package": "com.kast96.tasks",
             "versionCode": 1
-        }
+        },
+        "orientation": "portrait"
     }
 }
