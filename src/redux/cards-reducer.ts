@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CardType } from "../types/types";
-import image1 from "../assets/images/1.jpg";
+import tasks from "../assets/tasks/tasks";
 
 const SET_DETAIL_CARD = 'cards/cards/SET-DETAIL-CARD';
 const SET_DONE = 'cards/cards/SET-DONE';
@@ -8,11 +8,7 @@ const SAVE_STORAGE = 'cards/cards/SAVE-STORAGE';
 const LOAD_STORAGE = 'cards/cards/LOAD-STORAGE';
 
 let initialState = {
-    cards: [
-        {id: 1, image: image1, name: 'Card 1', description: 'Description 1', done: false},
-        {id: 2, image: image1, name: 'Card 2', description: 'Description 2'},
-        {id: 3, name: 'Card 3'}
-    ] as Array<CardType>,
+    cards: tasks as Array<CardType>,
     detail: 0
 }
 
