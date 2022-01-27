@@ -6,10 +6,12 @@ const SET_DETAIL_CARD = 'cards/cards/SET-DETAIL-CARD';
 const SET_DONE = 'cards/cards/SET-DONE';
 const SAVE_STORAGE = 'cards/cards/SAVE-STORAGE';
 const LOAD_STORAGE = 'cards/cards/LOAD-STORAGE';
+const SET_FILTER = 'cards/cards/SET-FILTER';
 
 let initialState = {
     cards: tasks as Array<CardType>,
-    detail: 0
+    detail: 0,
+    filter: null as string | null
 }
 
 type InitialStateType = typeof initialState;
@@ -54,6 +56,12 @@ const cardsReducer = (state = initialState, action: any): InitialStateType => {
             return {
                 ...state,
                 cards: cardsLoadStorage
+            };
+
+        case SET_FILTER:
+            return {
+                ...state,
+                filter: action.filter
             };
 
         default:
@@ -113,6 +121,15 @@ type LoadStorageActionType = {
 
 export const loadStorageActionCreator = (ids: Array<number>): LoadStorageActionType => {
     return {type: LOAD_STORAGE, ids}
+}
+
+type SerFilterActionType = {
+    type: typeof SET_FILTER
+    filter: string | null
+}
+
+export const setFilterActionCreator = (filter: string | null): SerFilterActionType => {
+    return {type: SET_FILTER, filter}
 }
 
 export default cardsReducer;

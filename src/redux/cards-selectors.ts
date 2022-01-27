@@ -7,6 +7,10 @@ export const getStateCards = (state: AppStateType) => {
 	return state.cards.cards;
 }
 
+export const getStateFilter = (state: AppStateType) => {
+    return state.cards.filter;
+}
+
 export const getStateCardDetail = createSelector(selectSelf, getStateCards, (state, items) => {
     let item = items.filter((item) => {
 		return item.id === state.cards.detail;
