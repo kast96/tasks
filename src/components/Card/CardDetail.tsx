@@ -13,7 +13,7 @@ const CardDetail: React.FC<PropsType> = ({item, onPressSetDone}) => {
     return (
         <View style={styles.detail}>
             {item.image &&
-                <Image source={item.image} style={styles.image} />
+                <Image source={{uri: item.image}} style={styles.image} />
             }
             <Text style={styles.title}>{item.name}</Text>
             <Text style={[styles.status, item.done && styles.status__done]}>{item.done ? 'Выполнено' : 'Не выполнено'}</Text>

@@ -9,12 +9,13 @@ type PropsType = {
 }
 
 const CardItem: React.FC<PropsType> = ({item}) => {
+
 	return (
 		<Link to={`/card/${item.id}`} style={styles.item} underlayColor="white">
 			<View style={styles.content}>
 				<View style={styles.image_container}>
 					{item.image &&
-						<Image source={item.image} style={styles.image} />
+						<Image source={{uri: item.image}} style={styles.image} />
 					}
 				</View>
 				<View style={styles.container}>

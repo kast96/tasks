@@ -1,17 +1,18 @@
 {
-    "expo": {
-        "name": "Tasks",
-        "icon": "./src/assets/images/icon.png",
-        "version": "0.0.1",
-        "slug": "tasks",
-        "ios": {
-            "bundleIdentifier": "com.kast96.tasks",
-            "buildNumber": "0.0.1"
-        },
-        "android": {
-            "package": "com.kast96.tasks",
-            "versionCode": 1
-        },
-        "orientation": "portrait"
-    }
+  "expo": {
+    "name": "Tasks",
+    "icon": "./src/assets/images/icon.png",
+    "version": "0.0.1",
+    "slug": "tasks",
+    "ios": {
+      "bundleIdentifier": "com.kast96.tasks",
+      "buildNumber": "0.0.1"
+    },
+    "android": {
+      "package": "com.kast96.tasks",
+      "versionCode": 1
+    },
+    "orientation": "portrait",
+    "description": ""
+  }
 }

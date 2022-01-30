@@ -21,3 +21,7 @@ export const getStateCardDetail = createSelector(selectSelf, getStateCards, (sta
     }
 	return item;
 });
+
+export const getIsLoad = (state: AppStateType) => {
+    return state.cards.isLoad;
+}
