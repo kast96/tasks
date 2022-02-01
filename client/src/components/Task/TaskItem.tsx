@@ -1,17 +1,17 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
 import { Link } from 'react-router-native';
-import { CardType } from '../../types/types';
-import styles from "./CardItemStyles";
+import { TaskType } from '../../types/types';
+import styles from "./TaskItemStyles";
 
 type PropsType = {
-	item: CardType
+	item: TaskType
 }
 
-const CardItem: React.FC<PropsType> = ({item}) => {
+const TaskItem: React.FC<PropsType> = ({item}) => {
 
 	return (
-		<Link to={`/card/${item.id}`} style={styles.item} underlayColor="white">
+		<Link to={`/task/${item.id}`} style={styles.item} underlayColor="white">
 			<View style={styles.content}>
 				<View style={styles.image_container}>
 					{item.image &&
@@ -28,4 +28,4 @@ const CardItem: React.FC<PropsType> = ({item}) => {
 	)
 }
 
-export default CardItem
+export default TaskItem

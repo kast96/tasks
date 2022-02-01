@@ -1,22 +1,22 @@
 import React, { Dispatch, useState } from 'react';
 import { SafeAreaView, ScrollView, View } from 'react-native';
-import { CardType } from "../../types/types";
+import { TaskType } from "../../types/types";
 import { ButtonFilter } from '../common/Button/ButtonFilter';
-import CardItem from './CardItem';
-import styles from "./CardsStyles";
+import TaskItem from './TaskItem';
+import styles from "./TasksStyles";
 
 type PropsType = {
-    cards: Array<CardType>
+    tasks: Array<TaskType>
     filter: string | null
     setFilterActionCreator: Dispatch<string | null>
 }
 
-const Cards: React.FC<PropsType> = ({cards, filter, setFilterActionCreator}) => {
+const Tasks: React.FC<PropsType> = ({tasks, filter, setFilterActionCreator}) => {
     let onFilter = (value: string | null) => () => {
         setFilterActionCreator(value);
     }
 
-    let filterCards = cards.filter(item => {
+    let filterTasks = tasks.filter(item => {
         switch (filter) {
             case 'done':
                 return item.done === true
@@ -41,10 +41,10 @@ const Cards: React.FC<PropsType> = ({cards, filter, setFilterActionCreator}) => 
                 </ScrollView>
             </SafeAreaView>
             <View style={styles.items}>
-                {filterCards.map(item => <CardItem key={item.id} item={item} />)}
+                {filterTasks.map(item => <TaskItem key={item.id} item={item} />)}
             </View>
         </View>
     )
 }
 
-export default Cards
+export default Tasks

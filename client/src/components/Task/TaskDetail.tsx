@@ -1,15 +1,15 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
-import { CardType } from '../../types/types';
+import { TaskType } from '../../types/types';
 import { Button } from '../common/Button/Button';
-import styles from "./CardDetailStyles";
+import styles from "./TaskDetailStyles";
 
 type PropsType = {
-    item: CardType
+    item: TaskType
     onPressSetDone: (id: number, done: boolean) => void
 }
 
-const CardDetail: React.FC<PropsType> = ({item, onPressSetDone}) => {
+const TaskDetail: React.FC<PropsType> = ({item, onPressSetDone}) => {
     return (
         <View style={styles.detail}>
             {item.image &&
@@ -29,4 +29,4 @@ const CardDetail: React.FC<PropsType> = ({item, onPressSetDone}) => {
     )
 }
 
-export default CardDetail
+export default TaskDetail

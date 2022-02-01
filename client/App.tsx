@@ -1,8 +1,8 @@
 import { SafeAreaView, ScrollView, Text } from 'react-native';
-import CardsContainer from "./src/components/Card/CardsContainer";
-import CardDetailContainer from "./src/components/Card/CardDetailContainer";
+import TasksContainer from "./src/components/Task/TasksContainer";
+import TaskDetailContainer from "./src/components/Task/TaskDetailContainer";
 import store, { AppStateType } from './src/redux/redux-store';
-import { getTasks, loadStorageActionCreator, retrieveData } from './src/redux/cards-reducer';
+import { getTasks, loadStorageActionCreator, retrieveData } from './src/redux/tasks-reducer';
 import { connect, Provider } from 'react-redux';
 import { NativeRouter, Route, Routes } from 'react-router-native';
 import { useEffect, useState } from 'react';
@@ -10,7 +10,7 @@ import styles from './AppStyles';
 import Header from "./src/components/Header/Header";
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import { getIsLoad } from './src/redux/cards-selectors';
+import { getIsLoad } from './src/redux/tasks-selectors';
 
 const AppRedux = ({isLoad, loadStorageActionCreator, getTasks}) => {
   let [title, setTitle] = useState<string>('Loading...');
@@ -46,8 +46,8 @@ const AppRedux = ({isLoad, loadStorageActionCreator, getTasks}) => {
             {isLoad && <Text>Loading...</Text>}
             {!isLoad &&
               <Routes>
-                {<Route path="/card/:id" element={<CardDetailContainer setTitle={setTitle} setBackBtnPath={setBackBtnPath} />} />}
-                <Route path="*" element={<CardsContainer setTitle={setTitle} setBackBtnPath={setBackBtnPath} />} />
+                {<Route path="/task/:id" element={<TaskDetailContainer setTitle={setTitle} setBackBtnPath={setBackBtnPath} />} />}
+                <Route path="*" element={<TasksContainer setTitle={setTitle} setBackBtnPath={setBackBtnPath} />} />
               </Routes>
             }
           </ScrollView>

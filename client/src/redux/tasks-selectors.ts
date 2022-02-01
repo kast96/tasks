@@ -3,17 +3,17 @@ import { AppStateType } from "./redux-store";
 
 const selectSelf = (state: AppStateType) => state
 
-export const getStateCards = (state: AppStateType) => {
-	return state.cards.cards;
+export const getStateTasks = (state: AppStateType) => {
+	return state.tasks.tasks;
 }
 
 export const getStateFilter = (state: AppStateType) => {
-    return state.cards.filter;
+    return state.tasks.filter;
 }
 
-export const getStateCardDetail = createSelector(selectSelf, getStateCards, (state, items) => {
+export const getStateTaskDetail = createSelector(selectSelf, getStateTasks, (state, items) => {
     let item = items.filter((item) => {
-		return item.id === state.cards.detail;
+		return item.id === state.tasks.detail;
 	})[0];
 
     if (!item) {
@@ -23,5 +23,5 @@ export const getStateCardDetail = createSelector(selectSelf, getStateCards, (sta
 });
 
 export const getIsLoad = (state: AppStateType) => {
-    return state.cards.isLoad;
+    return state.tasks.isLoad;
 }

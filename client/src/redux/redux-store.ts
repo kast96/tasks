@@ -1,10 +1,10 @@
 import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
-import cardsReducer from './cards-reducer';
+import tasksReducer from './tasks-reducer';
 import otherReducer from './other-reducer';
 import thunkMiddleware from 'redux-thunk';
 
 let rootReduser = combineReducers({
-    cards: cardsReducer,
+    tasks: tasksReducer,
     other: otherReducer
 });
 

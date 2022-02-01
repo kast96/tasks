@@ -1,36 +1,36 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { CardType } from "../types/types";
+import { TaskType } from "../types/types";
 import { tasksAPI } from '../api/api';
 import { ThunkAction } from 'redux-thunk';
 import { AppStateType } from './redux-store';
 
-const SET_DETAIL_CARD = 'cards/cards/SET-DETAIL-CARD';
-const SET_DONE = 'cards/cards/SET-DONE';
-const SAVE_STORAGE = 'cards/cards/SAVE-STORAGE';
-const LOAD_STORAGE = 'cards/cards/LOAD-STORAGE';
-const SET_FILTER = 'cards/cards/SET-FILTER';
-const SET_CARDS = 'cards/cards/SET-CARDS';
-const TOGGLE_IS_LOAD = 'cards/cards/TOGGLE-IS-LOAD';
+const SET_DETAIL_TASK = 'tasks/tasks/SET-DETAIL-TASK';
+const SET_DONE = 'tasks/tasks/SET-DONE';
+const SAVE_STORAGE = 'tasks/tasks/SAVE-STORAGE';
+const LOAD_STORAGE = 'tasks/tasks/LOAD-STORAGE';
+const SET_FILTER = 'tasks/tasks/SET-FILTER';
+const SET_TASKS = 'tasks/tasks/SET-TASKS';
+const TOGGLE_IS_LOAD = 'tasks/tasks/TOGGLE-IS-LOAD';
 
 let initialState = {
     isLoad: true,
-    cards: [] as Array<CardType>,
+    tasks: [] as Array<TaskType>,
     detail: 0,
     filter: null as string | null
 }
 
 type InitialStateType = typeof initialState;
 
-const cardsReducer = (state = initialState, action: any): InitialStateType => {
+const tasksReducer = (state = initialState, action: any): InitialStateType => {
     switch (action.type) {
-        case SET_DETAIL_CARD:
+        case SET_DETAIL_TASK:
             return {
                 ...state,
                 detail: action.detail,
             };
 
         case SET_DONE:
-            let cardsSetDone: Array<CardType> = [...state.cards].map(item => {
+            let tasksSetDone: Array<TaskType> = [...state.tasks].map(item => {
                 let newItem = {...item};
                 if (newItem.id === action.id) {
                     newItem.done = action.done;
@@ -40,17 +40,17 @@ const cardsReducer = (state = initialState, action: any): InitialStateType => {
             
             return {
                 ...state,
-                cards: cardsSetDone
+                tasks: tasksSetDone
             };
 
         case SAVE_STORAGE:
-            const items: Array<number> = state.cards.filter(item => item.done === true).map(item => item.id)
+            const items: Array<number> = state.tasks.filter(item => item.done === true).map(item => item.id)
             storeData('doneID', JSON.stringify(items));
             
             return state;
             
         case LOAD_STORAGE:
-            let cardsLoadStorage: Array<CardType> = [...state.cards].map(item => {
+            let tasksLoadStorage: Array<TaskType> = [...state.tasks].map(item => {
                 let newItem = {...item};
                 
                 if (action.ids.includes(newItem.id)) {
@@ -61,7 +61,7 @@ const cardsReducer = (state = initialState, action: any): InitialStateType => {
 
             return {
                 ...state,
-                cards: cardsLoadStorage
+                tasks: tasksLoadStorage
             };
 
         case SET_FILTER:
@@ -70,10 +70,10 @@ const cardsReducer = (state = initialState, action: any): InitialStateType => {
                 filter: action.filter
             };
         
-        case SET_CARDS:
+        case SET_TASKS:
             return {
                 ...state,
-                cards: action.cards
+                tasks: action.tasks
             }
 
         case TOGGLE_IS_LOAD:
@@ -87,11 +87,11 @@ const cardsReducer = (state = initialState, action: any): InitialStateType => {
     }
 }
 
-type ActionTypes = SetDetailActionType | SetDoneActionType | SaveStorageActionType | LoadStorageActionType | SetFilterActionType | SetCardsActionType | ToggleIsLoadType
+type ActionTypes = SetDetailActionType | SetDoneActionType | SaveStorageActionType | LoadStorageActionType | SetFilterActionType | SetTasksActionType | ToggleIsLoadType
 
 export const storeData = async (key: string, value: string): Promise<void | false> => {
     try {
-        await AsyncStorage.setItem(`@CardStore:${key}`, value);
+        await AsyncStorage.setItem(`@TaskStore:${key}`, value);
     } catch (error) {
         console.error('Save Failed');
         return false;
@@ -100,7 +100,7 @@ export const storeData = async (key: string, value: string): Promise<void | fals
 
 export const retrieveData = async (key: string): Promise<string | false> => {
     try {
-      return await AsyncStorage.getItem(`@CardStore:${key}`);
+      return await AsyncStorage.getItem(`@TaskStore:${key}`);
     } catch (error) {
         console.error('Load Failed');
         return false;
@@ -108,12 +108,12 @@ export const retrieveData = async (key: string): Promise<string | false> => {
 };
 
 type SetDetailActionType = {
-    type: typeof SET_DETAIL_CARD
+    type: typeof SET_DETAIL_TASK
     detail: number
 }
 
 export const setDetailActionCreator = (detail: number): SetDetailActionType => {
-	return {type: SET_DETAIL_CARD, detail}
+	return {type: SET_DETAIL_TASK, detail}
 }
 
 type SetDoneActionType = {
@@ -152,13 +152,13 @@ export const setFilterActionCreator = (filter: string | null): SetFilterActionTy
     return {type: SET_FILTER, filter}
 }
 
-type SetCardsActionType = {
-    type: typeof SET_CARDS
-    cards: Array<CardType>
+type SetTasksActionType = {
+    type: typeof SET_TASKS
+    tasks: Array<TaskType>
 }
 
-const setCards = (cards: Array<CardType>): SetCardsActionType => {
-    return {type: SET_CARDS, cards}
+const setTasks = (tasks: Array<TaskType>): SetTasksActionType => {
+    return {type: SET_TASKS, tasks}
 }
 
 type ToggleIsLoadType = {
@@ -177,8 +177,8 @@ export const getTasks = (): ThunkType => {
 		dispatch(toggleIsLoad(true));
 		let response = await tasksAPI.getTasks();
 		dispatch(toggleIsLoad(false));
-		dispatch(setCards(response));
+		dispatch(setTasks(response));
 	}
 }
 
-export default cardsReducer;
+export default tasksReducer;

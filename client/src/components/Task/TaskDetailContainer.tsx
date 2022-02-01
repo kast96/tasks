@@ -3,14 +3,14 @@ import { BackHandler } from 'react-native';
 import { connect } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-native';
 import { compose } from 'redux';
-import { saveStorageActionCreator, setDetailActionCreator, setDoneActionCreator } from '../../redux/cards-reducer';
-import { getStateCardDetail } from '../../redux/cards-selectors';
+import { saveStorageActionCreator, setDetailActionCreator, setDoneActionCreator } from '../../redux/tasks-reducer';
+import { getStateTaskDetail } from '../../redux/tasks-selectors';
 import { AppStateType } from '../../redux/redux-store';
-import { CardType } from "../types/types";
-import CardDetail from './CardDetail';
+import { TaskType } from "../types/types";
+import TaskDetail from './TaskDetail';
 
 type MapStateToPropsType = {
-	item: CardType
+	item: TaskType
 }
   
 type MapDispatchToPropsType = {
@@ -26,7 +26,7 @@ type OtherPropsType = {
   
 type PropsType = MapStateToPropsType & MapDispatchToPropsType & OtherPropsType
 
-const CardDetailContainer: React.FC<PropsType> = ({item, setDetailActionCreator, setDoneActionCreator, saveStorageActionCreator, setTitle, setBackBtnPath}) => {
+const TaskDetailContainer: React.FC<PropsType> = ({item, setDetailActionCreator, setDoneActionCreator, saveStorageActionCreator, setTitle, setBackBtnPath}) => {
 	const urlParams = useParams()
 	const id = +urlParams.id
 	
@@ -60,16 +60,16 @@ const CardDetailContainer: React.FC<PropsType> = ({item, setDetailActionCreator,
 	}
 	
 	return (
-		<CardDetail item={item} onPressSetDone={onPressSetDone} />
+		<TaskDetail item={item} onPressSetDone={onPressSetDone} />
 	)
 }
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 	return {
-		item: getStateCardDetail(state)
+		item: getStateTaskDetail(state)
 	}
 }
 
 export default compose(
 	connect<MapStateToPropsType, MapDispatchToPropsType, OtherPropsType, AppStateType>(mapStateToProps, {setDetailActionCreator, setDoneActionCreator, saveStorageActionCreator}),
-)(CardDetailContainer);
+)(TaskDetailContainer);
