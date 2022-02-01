@@ -2,11 +2,11 @@
   "expo": {
     "name": "Tasks",
     "icon": "./src/assets/images/icon.png",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "slug": "tasks",
     "ios": {
       "bundleIdentifier": "com.kast96.tasks",
-      "buildNumber": "0.0.1"
+      "buildNumber": "0.0.2"
     },
     "android": {
       "package": "com.kast96.tasks",
