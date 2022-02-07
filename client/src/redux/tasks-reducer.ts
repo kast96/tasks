@@ -11,12 +11,15 @@ const LOAD_STORAGE = 'tasks/tasks/LOAD-STORAGE';
 const SET_FILTER = 'tasks/tasks/SET-FILTER';
 const SET_TASKS = 'tasks/tasks/SET-TASKS';
 const TOGGLE_IS_LOAD = 'tasks/tasks/TOGGLE-IS-LOAD';
+const TOGGLE_IS_RESPONCE_SUCCESS = 'tasks/tasks/TOGGLE-IS-RESPONCE-SUCCESS';
 
 let initialState = {
     isLoad: true,
     tasks: [] as Array<TaskType>,
     detail: 0,
-    filter: null as string | null
+    filter: null as string | null,
+    isResponceSuccess: false,
+    responceErrorCode: '',
 }
 
 type InitialStateType = typeof initialState;
@@ -82,12 +85,19 @@ const tasksReducer = (state = initialState, action: any): InitialStateType => {
                 isLoad: action.isLoad
             }
 
+        case TOGGLE_IS_RESPONCE_SUCCESS:
+            return {
+                ...state,
+                isResponceSuccess: action.isResponceSuccess,
+                responceErrorCode: action.responceErrorCode || ''
+            }
+
         default:
             return state;
     }
 }
 
-type ActionTypes = SetDetailActionType | SetDoneActionType | SaveStorageActionType | LoadStorageActionType | SetFilterActionType | SetTasksActionType | ToggleIsLoadType
+type ActionTypes = SetDetailActionType | SetDoneActionType | SaveStorageActionType | LoadStorageActionType | SetFilterActionType | SetTasksActionType | ToggleIsLoadType | ToggleIsResponceSuccessType
 
 export const storeData = async (key: string, value: string): Promise<void | false> => {
     try {
@@ -170,14 +180,29 @@ const toggleIsLoad = (isLoad: boolean): ToggleIsLoadType => {
     return {type: TOGGLE_IS_LOAD, isLoad}
 }
 
+type ToggleIsResponceSuccessType = {
+    type: typeof TOGGLE_IS_RESPONCE_SUCCESS
+    isResponceSuccess: boolean
+    responceErrorCode?: string
+}
+
+const toggleIsResponceSuccess = (isResponceSuccess: boolean, responceErrorCode = ''): ToggleIsResponceSuccessType => {
+    return {type: TOGGLE_IS_RESPONCE_SUCCESS, isResponceSuccess, responceErrorCode}
+}
+
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 
 export const getTasks = (): ThunkType => {
 	return async (dispatch) => {
-		dispatch(toggleIsLoad(true));
+        dispatch(toggleIsLoad(true));
 		let response = await tasksAPI.getTasks();
-		dispatch(toggleIsLoad(false));
-		dispatch(setTasks(response));
+        dispatch(toggleIsLoad(false));
+        if (typeof response == 'object') {
+            dispatch(setTasks(response));
+            dispatch(toggleIsResponceSuccess(true));
+        } else {
+            dispatch(toggleIsResponceSuccess(false, response));
+        }
 	}
 }
 

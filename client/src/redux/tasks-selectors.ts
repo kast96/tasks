@@ -25,3 +25,11 @@ export const getStateTaskDetail = createSelector(selectSelf, getStateTasks, (sta
 export const getIsLoad = (state: AppStateType) => {
     return state.tasks.isLoad;
 }
+
+export const getIsResponceSuccess = (state: AppStateType) => {
+    return state.tasks.isResponceSuccess;
+}
+
+export const getResponceErrorCode = (state: AppStateType) => {
+    return state.tasks.responceErrorCode;
+}

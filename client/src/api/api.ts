@@ -6,6 +6,7 @@ const baseURL = 'http://192.168.0.100:3000/'
 const instance = axios.create({
     baseURL: baseURL,
 });
+instance.defaults.timeout = 3000;
 
 export const tasksAPI = {
     getTasks() {
@@ -16,6 +17,8 @@ export const tasksAPI = {
             })
             
             return response.data
+        }).catch(reason => {
+            return reason.code
         });
     },
 }
