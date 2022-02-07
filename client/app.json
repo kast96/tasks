@@ -2,15 +2,15 @@
   "expo": {
     "name": "Tasks",
     "icon": "./src/assets/images/icon.png",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "slug": "tasks",
     "ios": {
       "bundleIdentifier": "com.kast96.tasks",
-      "buildNumber": "0.0.2"
+      "buildNumber": "0.0.3"
     },
     "android": {
       "package": "com.kast96.tasks",
-      "versionCode": 1
+      "versionCode": 3
     },
     "orientation": "portrait",
     "description": ""
