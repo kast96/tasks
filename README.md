@@ -1,4 +1,4 @@
-# Tasks &middot; ![react-native](https://img.shields.io/badge/react--native-0.64.3-blue) ![react-native](https://img.shields.io/badge/expo-4.17.2-blue)
+# Tasks &middot; ![node](https://img.shields.io/badge/node-v16.13.2-blue) ![react-native](https://img.shields.io/badge/react--native-0.64.3-blue) ![react-native](https://img.shields.io/badge/expo-4.17.2-blue)
 
 Приложение показа списка задач и изменения статуса их выполнения.
 
@@ -8,6 +8,11 @@
 
 * **Сервер** - Создает REST API для отправки списка задач.
 *Примечание: У сервера жестко задан 3000 порт для соединения.*
+
+## Скриншоты
+
+![list](https://github.com/kast96/tasks/blob/master/screenshots/list.png?raw=true)
+![detail](https://github.com/kast96/tasks/blob/master/screenshots/detail.png?raw=true)
 
 ## Сервер
 ### Запуск
