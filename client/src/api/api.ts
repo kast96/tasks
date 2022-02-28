@@ -12,7 +12,7 @@ export const tasksAPI = {
     getTasks() {
         return instance.get<Array<TaskType>>(`tasks/`).then(response => {
             response.data.map(item => {
-                item.image = (baseURL + item.image).replace(/\/\//g, "/")
+                item.image = (baseURL.substring(0, baseURL.length - 1) + item.image)
                 return item
             })
             
